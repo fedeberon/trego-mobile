@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Trego",
+    "slug": "trego",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "trego",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/brand/ios/Icon-1024.png",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ideaas.trego",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "Trego necesita conectarse a la red local para cargar la versión de desarrollo.",
+        "NSLocationWhenInUseUsageDescription": "Trego necesita tu ubicación para compartir el recorrido con el cargador."
+      },
+      "entitlements": {
+        "aps-environment": "development"
+      }
+    },
+    "android": {
+      "package": "com.ideaas.trego",
+      "googleServicesFile": "./google-services.json",
+      "permissions": [
+        "POST_NOTIFICATIONS",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/brand/android/mipmap-xxxhdpi/ic_launcher.png",
+        "backgroundColor": "#F5F8FA"
+      }
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/messaging",
+      "expo-notifications",
+      "expo-location",
+      "expo-asset",
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "28035164-1616-4b63-b91c-6e1c5333a88b"
+      }
+    },
+    "owner": "ideaas"
+  }
+}
