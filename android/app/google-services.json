@@ -1,0 +1,19 @@
+{
+  "project_info": {
+    "project_number": "713924917739",
+    "project_id": "trego-d64ec",
+    "storage_bucket": "trego-d64ec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713924917739:android:f3a7f1c2aa0a627fe241ae",
+        "android_client_info": { "package_name": "com.trego.app" }
+      },
+      "oauth_client": [],
+      "api_key": [{ "current_key": "AIzaSyAEjpK18EaRvQ0Ouldcxuo6xd-b5Ba17mA" }],
+      "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
+    }
+  ],
+  "configuration_version": "1"
+}

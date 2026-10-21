@@ -18,5 +18,3 @@ ios/*.xcworkspace.backup
 !\.env.example
 android/google-services.json
 ios/GoogleService-Info.plist
-android/app/google-services.json
-ios/Trego/GoogleService-Info.plist
