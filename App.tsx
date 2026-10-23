@@ -47,6 +47,22 @@ const notificationScreen = (data?: NotificationData): Screen => {
   }
 }
 
+const pushCopy = (type?: string) => {
+  switch (type) {
+    case 'cancellation_request':
+    case 'cancel_request':
+      return { title: 'Solicitud de cancelación', body: 'Tenés una solicitud de cancelación para revisar.' }
+    case 'cancellation_accepted':
+    case 'cancel_accepted':
+      return { title: 'Cancelación aceptada', body: 'La solicitud de cancelación fue aceptada.' }
+    case 'cancellation_rejected':
+    case 'cancel_rejected':
+      return { title: 'Cancelación rechazada', body: 'La solicitud de cancelación fue rechazada y el viaje continúa activo.' }
+    default:
+      return { title: 'Nueva oportunidad', body: 'Hay una actualización en Trego.' }
+  }
+}
+
 async function markNotificationAsSeen(data?: NotificationData) {
   const key = data?.notificationId || data?.matchId
   if (data?.matchId) await AsyncStorage.setItem('trego.activeMatchId', data.matchId)
@@ -785,7 +801,7 @@ function AppContent() {
     let mounted = true
     preparePushToken(token).catch(error => { if (__DEV__) console.warn('[push] No se pudo registrar el dispositivo', error) })
     const openNotification = async (data?: NotificationData) => { if (!mounted || await markNotificationAsSeen(data)) return; await queueLocationShare(data); go(notificationScreen(data)) }
-    const unsubscribeMessage = onMessage(firebaseMessaging, async remoteMessage => { const data = remoteMessage.data as NotificationData | undefined; if (await markNotificationAsSeen(data)) return; await queueLocationShare(data); await Notifications.scheduleNotificationAsync({ content: { title: remoteMessage.notification?.title || 'Nueva oportunidad', body: remoteMessage.notification?.body || 'Hay una actualización en Trego.', sound: 'default', data }, trigger: null }); setPushRevision(current => current + 1); if (data?.type === 'location_request') go('trips') })
+    const unsubscribeMessage = onMessage(firebaseMessaging, async remoteMessage => { const data = remoteMessage.data as NotificationData | undefined; if (await markNotificationAsSeen(data)) return; await queueLocationShare(data); const copy = pushCopy(data?.type); await Notifications.scheduleNotificationAsync({ content: { title: remoteMessage.notification?.title || copy.title, body: remoteMessage.notification?.body || copy.body, sound: 'default', data }, trigger: null }); setPushRevision(current => current + 1); if (data?.type === 'location_request') go('trips') })
     const unsubscribeOpened = onNotificationOpenedApp(firebaseMessaging, remoteMessage => { void openNotification(remoteMessage.data) })
     const responseSubscription = Notifications.addNotificationResponseReceivedListener(response => { void openNotification(response.notification.request.content.data as NotificationData) })
     const unsubscribeToken = onTokenRefresh(firebaseMessaging, pushToken => { if (mounted) void preparePushToken(token, pushToken).catch(error => { if (__DEV__) console.warn('[push] No se pudo actualizar el dispositivo', error) }) })

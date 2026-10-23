@@ -15,6 +15,45 @@ native-poc/android/.gradle/
 native-poc/
 ios/*.xcworkspace.backup
 .env*
-!\.env.example
+!.env.example
 android/google-services.json
 ios/GoogleService-Info.plist
+
+# Local OS/editor files and logs
+.DS_Store
+Thumbs.db
+*.log
+*.tsbuildinfo
+.idea/
+*.iml
+
+# Generated build/test output (keep native sources and lockfiles)
+coverage/
+build/
+DerivedData/
+*.aab
+*.apk
+*.ipa
+*.xcarchive/
+*.dSYM/
+*.dSYM.zip
+.xcode.env.local
+
+# Private signing keys and submission/service-account credentials
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.p8
+*.pem
+*.key
+*.mobileprovision
+credentials.json
+service-account*.json
+*-service-account.json
+*firebase-adminsdk*.json
+play-store-credentials*.json
+google-play-service-account*.json
+
+# google-services.json and GoogleService-Info.plist are client configuration.
+# Keep the tracked copies required by app.json and the native builds.

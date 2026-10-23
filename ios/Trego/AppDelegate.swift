@@ -1,16 +1,16 @@
-import Expo
+internal import Expo
 import FirebaseCore
 import React
 import ReactAppDependencyProvider
 
 @UIApplicationMain
-public class AppDelegate: ExpoAppDelegate {
+class AppDelegate: ExpoAppDelegate {
   var window: UIWindow?
 
   var reactNativeDelegate: ExpoReactNativeFactoryDelegate?
   var reactNativeFactory: RCTReactNativeFactory?
 
-  public override func application(
+  override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
@@ -20,8 +20,6 @@ public class AppDelegate: ExpoAppDelegate {
 
     reactNativeDelegate = delegate
     reactNativeFactory = factory
-    bindReactNativeFactory(factory)
-
 #if os(iOS) || os(tvOS)
     window = UIWindow(frame: UIScreen.main.bounds)
 // @generated begin @react-native-firebase/app-didFinishLaunchingWithOptions - expo prebuild (DO NOT MODIFY) sync-10e8520570672fd76b2403b7e1e27f5198a6349a
@@ -37,7 +35,7 @@ FirebaseApp.configure()
   }
 
   // Linking API
-  public override func application(
+  override func application(
     _ app: UIApplication,
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey: Any] = [:]
@@ -46,7 +44,7 @@ FirebaseApp.configure()
   }
 
   // Universal Links
-  public override func application(
+  override func application(
     _ application: UIApplication,
     continue userActivity: NSUserActivity,
     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void

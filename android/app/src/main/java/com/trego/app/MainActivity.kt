@@ -1,4 +1,4 @@
-package com.trego.app
+package com.ideaas.trego
 
 import android.os.Build
 import android.os.Bundle
