@@ -125,14 +125,19 @@ export function getMatches(token: string) {
 export type CommissionQuote = {
   enabled: boolean
   priceRequired?: boolean
+  requiresConsent?: boolean
   amountCents: number
   currency?: string
   token: string | null
+  consentToken?: string | null
+  commissionConsentToken?: string | null
   terms?: { baseCents: number; rateBps: number; dueDays: number } | null
 }
 
-export function getCommissionQuote(token: string, cargoId: string, price: number) {
-  return request<CommissionQuote>(`/api/mobile/billing/quote?cargoId=${encodeURIComponent(cargoId)}&price=${encodeURIComponent(String(price))}`, {}, token)
+export async function getCommissionQuote(token: string, cargoId: string, price: number) {
+  const result = await request<CommissionQuote & { consentToken?: string | null; commissionConsentToken?: string | null; requiresConsent?: boolean }>(`/api/mobile/billing/quote?cargoId=${encodeURIComponent(cargoId)}&price=${encodeURIComponent(String(price))}`, {}, token)
+  const consentToken = result.token || result.commissionConsentToken || result.consentToken || null
+  return { ...result, token: consentToken, enabled: Boolean(result.enabled || result.priceRequired || result.requiresConsent || consentToken) }
 }
 
 export function createMatch(token: string, data: { cargoId: string; tripId?: string; offeredPrice?: number; commissionConsentToken?: string | null }) {
