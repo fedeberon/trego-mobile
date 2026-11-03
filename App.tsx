@@ -10,7 +10,7 @@ import * as WebBrowser from 'expo-web-browser'
 import { getApp } from '@react-native-firebase/app'
 import { AuthorizationStatus, getInitialNotification, getMessaging, getToken, isDeviceRegisteredForRemoteMessages, onMessage, onNotificationOpenedApp, onTokenRefresh, registerDeviceForRemoteMessages, requestPermission, setBackgroundMessageHandler } from '@react-native-firebase/messaging'
 import React, { useEffect, useRef, useState } from 'react'
-import { AccessibilityInfo, ActivityIndicator, Animated, AppState, Image, Keyboard, KeyboardAvoidingView, Linking, Modal, Platform, Pressable, ScrollView, StyleSheet, Text as RNText, TextInput as RNTextInput, View } from 'react-native'
+import { AccessibilityInfo, ActivityIndicator, Animated, AppState, Easing, Image, Keyboard, KeyboardAvoidingView, Linking, Modal, Platform, Pressable, ScrollView, StyleSheet, Text as RNText, TextInput as RNTextInput, View } from 'react-native'
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { acceptMatch, archiveCargo, AvailableCargo, CancellationCase, CommissionQuote, ConversationMessage, createCargo, createMatch, createTransporterTrip, DeliveryReview, getAvailableCargos, getCancellationCases, getCommissionQuote, getConversation, getMatches, getNotifications, getRouteSuggestions, getRouteSuggestionMap, getTripLocationState, getTransporterAvailability, getTransporterProfile, getTrips, getTransporterRoutes, loginWithCredentials, loginWithGoogle, markTripArrived, MatchRecord, MobileNotification, MobileUser, mutateCancellation, mutateTransporterRoute, proposeRouteSuggestion, registerDevice, searchAddresses, sendMessage, sendTripLocation, setTransporterAvailability, setTripLocationSharing, TripAction, TripRecord, TransporterProfileResponse, TransporterRoute, updateTripStatus } from './api'
 import { formatDate, formatDateTime, formatNumber, getLocale, I18nProvider, localeLabels, supportedLocales, translateText, useI18n } from './i18n'
@@ -629,7 +629,7 @@ function Home({ go, user, token, refreshKey = 0 }: { go: (screen: Screen) => voi
     if (!searchRevealStarted.current && event.nativeEvent.contentOffset.y > 80) {
       searchRevealStarted.current = true
       setSearchShown(true)
-      Animated.timing(searchReveal, { toValue: 1, duration: 220, useNativeDriver: true }).start()
+      Animated.timing(searchReveal, { toValue: 1, duration: 420, easing: Easing.out(Easing.cubic), useNativeDriver: true }).start()
     }
   }
   return <>
