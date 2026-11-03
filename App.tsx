@@ -597,6 +597,14 @@ function Home({ go, user, token, refreshKey = 0 }: { go: (screen: Screen) => voi
   const searchRevealStarted = useRef(false)
 
   useEffect(() => {
+    if (!searchShown) return
+    searchReveal.setValue(0)
+    const animation = Animated.timing(searchReveal, { toValue: 1, duration: 520, easing: Easing.out(Easing.cubic), useNativeDriver: true })
+    animation.start()
+    return () => animation.stop()
+  }, [searchShown, searchReveal])
+
+  useEffect(() => {
     Promise.all([getAvailableCargos(token), isTransporter ? getTrips(token) : Promise.resolve({ trips: [] as TripRecord[] }), isTransporter ? getMatches(token) : Promise.resolve({ matches: [] as MatchRecord[] })]).then(([cargoResult, tripResult, matchResult]) => {
       setCargos(cargoResult.cargos)
       setAvailableTripId(tripResult.trips.find(trip => trip.status === 'AVAILABLE')?.id)
@@ -631,7 +639,6 @@ function Home({ go, user, token, refreshKey = 0 }: { go: (screen: Screen) => voi
     if (!searchRevealStarted.current && event.nativeEvent.contentOffset.y >= anchorThreshold) {
       searchRevealStarted.current = true
       setSearchShown(true)
-      Animated.timing(searchReveal, { toValue: 1, duration: 420, easing: Easing.out(Easing.cubic), useNativeDriver: true }).start()
     }
   }
   return <>
